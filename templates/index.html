@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resto 2.0 - Modern Restaurant Experience</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="light-mode">
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Resto 2.0</h1>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}" class="active">Home</a>
+                <a href="{{ url_for('menu') }}">Menu</a>
+                <a href="{{ url_for('order') }}">Order</a>
+                <a href="{{ url_for('reviews') }}">Reviews</a>
+            </div>
+            <div class="nav-actions">
+                <button id="cart-btn"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></button>
+                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+                <div class="language-selector">
+                    <select id="language">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                    </select>
+                </div>
+            </div>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Experience Culinary Excellence</h1>
+                <p>Discover a blend of traditional flavors and modern cuisine</p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('menu') }}" class="btn primary">View Menu</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="daily-offers">
+            <h2>Today's Special Offers</h2>
+            <div class="offers-container">
+                <div class="offer-card">
+                    <div class="offer-image">
+                        <img src="{{ url_for('static', filename='images/special1.jpg') }}" alt="Special dish 1">
+                    </div>
+                    <div class="offer-details">
+                        <h3>Butter Chicken Special</h3>
+                        <p>Our signature butter chicken with special spices</p>
+                        <span class="price">₹899</span>
+                        <button class="add-to-cart" data-id="special1" data-name="Butter Chicken Special" data-price="899">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-image">
+                        <img src="{{ url_for('static', filename='images/special2.jpg') }}" alt="Special dish 2">
+                    </div>
+                    <div class="offer-details">
+                        <h3>Paneer Special</h3>
+                        <p>Premium paneer with our chef's special gravy</p>
+                        <span class="price">₹799</span>
+                        <button class="add-to-cart" data-id="special2" data-name="Paneer Special" data-price="799">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-image">
+                        <img src="{{ url_for('static', filename='images/special3.jpg') }}" alt="Special dish 3">
+                    </div>
+                    <div class="offer-details">
+                        <h3>Indian Dessert Platter</h3>
+                        <p>Assortment of our finest Indian desserts</p>
+                        <span class="price">₹599</span>
+                        <button class="add-to-cart" data-id="special3" data-name="Indian Dessert Platter" data-price="599">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card" id="scan-order-card">
+                <i class="fas fa-qrcode"></i>
+                <h3>Scan & Order</h3>
+                <p>Scan the QR code at your table to order instantly</p>
+                <button class="feature-btn" onclick="openQRScanner()">Start Scanning</button>
+            </div>
+            <div class="feature-card" id="order-online-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Order Online</h3>
+                <p>Order from anywhere for pickup or delivery</p>
+                <button class="feature-btn" onclick="openOrderOptions()">Order Now</button>
+            </div>
+            <div class="feature-card" id="loyalty-card">
+                <i class="fas fa-star"></i>
+                <h3>Loyalty Rewards</h3>
+                <p>Earn points with every order for exclusive rewards</p>
+                <button class="feature-btn" onclick="openLoyaltyDashboard()">View Rewards</button>
+            </div>
+            <div class="feature-card" id="track-order-card">
+                <i class="fas fa-clock"></i>
+                <h3>Track Your Order</h3>
+                <p>Real-time updates on your order status</p>
+                <button class="feature-btn" onclick="openOrderTracker()">Track Order</button>
+            </div>
+        </section>
+
+        <section class="about-us">
+            <div class="about-content">
+                <h2>Our Story</h2>
+                <p>Founded in 2020, Resto 2.0 combines traditional culinary expertise with modern technology to create an unforgettable dining experience. Our chefs source only the freshest ingredients to craft dishes that delight the senses.</p>
+                <p>Whether you're dining in, taking out, or ordering delivery, we're committed to providing exceptional food and service.</p>
+            </div>
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='images/restaurant.jpg') }}" alt="Restaurant interior">
+            </div>
+        </section>
+
+        <section class="featured-reviews">
+            <h2>What Our Customers Say</h2>
+            <div class="reviews-container">
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="{{ url_for('static', filename='images/user1.jpg') }}" alt="Customer 1">
+                        <div>
+                            <h4>Sarah Johnson</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"The food was absolutely amazing! The QR code ordering system made everything so convenient. Will definitely be coming back!"</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="{{ url_for('static', filename='images/user2.jpg') }}" alt="Customer 2">
+                        <div>
+                            <h4>Michael Chen</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"Great atmosphere and excellent service. The loyalty program is a nice touch - already earned enough points for a free dessert!"</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="{{ url_for('static', filename='images/user3.jpg') }}" alt="Customer 3">
+                        <div>
+                            <h4>Emily Rodriguez</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"The online ordering system is so easy to use, and I love being able to track my delivery in real-time. The food arrived hot and delicious!"</p>
+                </div>
+            </div>
+            <a href="{{ url_for('reviews') }}" class="btn secondary">See All Reviews</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Resto 2.0</h3>
+                <p>Modern dining experience with traditional flavors</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Hours</h3>
+                <p>Monday - Thursday: 11am - 10pm</p>
+                <p>Friday - Saturday: 11am - 11pm</p>
+                <p>Sunday: 12pm - 9pm</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, City</p>
+                <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                <p><i class="fas fa-envelope"></i> info@resto2.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe for special offers and updates</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Resto 2.0. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-total">
+                <p>Total: <span id="cart-total-price">₹0</span></p>
+            </div>
+            <div class="cart-actions">
+                <button id="clear-cart" class="btn secondary">Clear Cart</button>
+                <a href="{{ url_for('order') }}" id="checkout-btn" class="btn primary">Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Scanner Modal -->
+    <div id="qr-scanner-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeQRScanner()">&times;</span>
+            <h2>Scan QR Code</h2>
+            <div id="qr-scanner-container">
+                <div id="qr-video-container">
+                    <video id="qr-video" autoplay></video>
+                    <div id="qr-overlay"></div>
+                </div>
+                <p>Point your camera at the QR code on your table</p>
+                <button class="btn secondary" onclick="closeQRScanner()">Cancel</button>
+            </div>
+            <div id="table-info" style="display: none;">
+                <h3>Table Information</h3>
+                <p id="table-details"></p>
+                <button class="btn primary" onclick="startTableOrder()">Start Ordering</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Options Modal -->
+    <div id="order-options-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOrderOptions()">&times;</span>
+            <h2>Order Options</h2>
+            <div class="order-options">
+                <div class="order-option" onclick="selectOrderType('pickup')">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>Pickup</h3>
+                    <p>Order online and pick up at the restaurant</p>
+                </div>
+                <div class="order-option" onclick="selectOrderType('delivery')">
+                    <i class="fas fa-truck"></i>
+                    <h3>Delivery</h3>
+                    <p>Get your food delivered to your doorstep</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loyalty Dashboard Modal -->
+    <div id="loyalty-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoyaltyDashboard()">&times;</span>
+            <h2>Loyalty Rewards</h2>
+            <div class="loyalty-dashboard">
+                <div class="points-summary">
+                    <h3>Your Points</h3>
+                    <div class="points-display">
+                        <span id="user-points">1,250</span>
+                        <small>points</small>
+                    </div>
+                </div>
+                <div class="rewards-available">
+                    <h3>Available Rewards</h3>
+                    <div class="reward-item">
+                        <span>Free Appetizer</span>
+                        <span class="points-cost">500 points</span>
+                        <button class="btn primary" onclick="redeemReward('appetizer', 500)">Redeem</button>
+                    </div>
+                    <div class="reward-item">
+                        <span>₹200 Off</span>
+                        <span class="points-cost">1000 points</span>
+                        <button class="btn primary" onclick="redeemReward('discount', 1000)">Redeem</button>
+                    </div>
+                    <div class="reward-item">
+                        <span>Free Dessert</span>
+                        <span class="points-cost">750 points</span>
+                        <button class="btn primary" onclick="redeemReward('dessert', 750)">Redeem</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Tracker Modal -->
+    <div id="order-tracker-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOrderTracker()">&times;</span>
+            <h2>Track Your Order</h2>
+            <div class="order-tracker">
+                <div class="order-input">
+                    <input type="text" id="order-id" placeholder="Enter your order ID">
+                    <button class="btn primary" onclick="trackOrder()">Track</button>
+                </div>
+                <div id="order-status" style="display: none;">
+                    <div class="status-timeline">
+                        <div class="status-step completed">
+                            <i class="fas fa-check"></i>
+                            <span>Order Confirmed</span>
+                        </div>
+                        <div class="status-step completed">
+                            <i class="fas fa-utensils"></i>
+                            <span>Preparing</span>
+                        </div>
+                        <div class="status-step active">
+                            <i class="fas fa-truck"></i>
+                            <span>Out for Delivery</span>
+                        </div>
+                        <div class="status-step">
+                            <i class="fas fa-home"></i>
+                            <span>Delivered</span>
+                        </div>
+                    </div>
+                    <p id="estimated-time">Estimated delivery: 15-20 minutes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Resto 2.0</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="light-mode">
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Resto 2.0</h1>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('menu') }}" class="active">Menu</a>
+                <a href="{{ url_for('order') }}">Order</a>
+                <a href="{{ url_for('reviews') }}">Reviews</a>
+            </div>
+            <div class="nav-actions">
+                <button id="cart-btn"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></button>
+                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+                <div class="language-selector">
+                    <select id="language">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                    </select>
+                </div>
+            </div>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="menu-header">
+            <h1>Our Menu</h1>
+            <div class="search-filter-container">
+                <div class="search-box">
+                    <input type="text" id="menu-search" placeholder="Search for dishes...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-group">
+                        <label for="price-filter">Price:</label>
+                        <select id="price-filter">
+                            <option value="all">All Prices</option>
+                            <option value="low">₹0 - ₹500</option>
+                            <option value="medium">₹500 - ₹1000</option>
+                            <option value="high">₹1000+</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="dietary-filter">Dietary:</label>
+                        <select id="dietary-filter">
+                            <option value="all">All</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="gluten-free">Gluten-Free</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-categories">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">All</button>
+                <button class="category-tab" data-category="vegan">Vegan</button>
+                <button class="category-tab" data-category="vegetarian">Vegetarian</button>
+                <button class="category-tab" data-category="gluten-free">Gluten-Free</button>
+                <button class="category-tab" data-category="all-items">All Items</button>
+            </div>
+        </section>
+
+        <section class="menu-items">
+            <!-- Vegan Menu -->
+            <div class="category-section" id="vegan">
+                <h2>🌱 Vegan Menu</h2>
+                <!-- Vegan Starters -->
+                <h3>⭐ Starters</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="vegan" data-price="249" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/hara_bhara_kabab.jpg') }}" alt="Hara Bhara Kabab">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Hara Bhara Kabab</h3>
+                            <p>Spinach & peas patties</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹249</span>
+                                <button class="add-to-cart" data-id="hara_bhara_kabab" data-name="Hara Bhara Kabab" data-price="249">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegan" data-price="199" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/aloo_tikki.jpg') }}" alt="Aloo Tikki">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Aloo Tikki</h3>
+                            <p>Spiced potato cutlets</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹199</span>
+                                <button class="add-to-cart" data-id="aloo_tikki" data-name="Aloo Tikki" data-price="199">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegan" data-price="229" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/vegetable_pakora.jpg') }}" alt="Vegetable Pakora">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Vegetable Pakora</h3>
+                            <p>Crispy gram flour fritters</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹229</span>
+                                <button class="add-to-cart" data-id="veg_pakora" data-name="Vegetable Pakora" data-price="229">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vegan Main Course -->
+                <h3>🍛 Main Course</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="vegan" data-price="349" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/chana_masala.jpg') }}" alt="Chana Masala">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Chana Masala</h3>
+                            <p>Chickpeas in spicy tomato gravy</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹349</span>
+                                <button class="add-to-cart" data-id="chana_masala" data-name="Chana Masala" data-price="349">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegan" data-price="399" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/baingan_bharta.jpg') }}" alt="Baingan Bharta">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Baingan Bharta</h3>
+                            <p>Roasted eggplant mash</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹399</span>
+                                <button class="add-to-cart" data-id="baingan_bharta" data-name="Baingan Bharta" data-price="399">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegan" data-price="449" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/vegetable_biryani.jpg') }}" alt="Vegetable Biryani">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Vegetable Biryani</h3>
+                            <p>Aromatic rice with veggies</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹449</span>
+                                <button class="add-to-cart" data-id="veg_biryani" data-name="Vegetable Biryani" data-price="449">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vegan Desserts -->
+                <h3>🍮 Desserts</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="vegan" data-price="199" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/coconut_ladoo.jpg') }}" alt="Coconut Ladoo">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Coconut Ladoo</h3>
+                            <p>Coconut & jaggery sweet</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹199</span>
+                                <button class="add-to-cart" data-id="coconut_ladoo" data-name="Coconut Ladoo" data-price="199">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegan" data-price="249" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/aamras.jpg') }}" alt="Aamras">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Aamras</h3>
+                            <p>Fresh mango pulp (seasonal)</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹249</span>
+                                <button class="add-to-cart" data-id="aamras" data-name="Aamras" data-price="249">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegan" data-price="299" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/kaju_katli.jpg') }}" alt="Kaju Katli">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Kaju Katli</h3>
+                            <p>Cashew fudge</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹299</span>
+                                <button class="add-to-cart" data-id="kaju_katli" data-name="Kaju Katli" data-price="299">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vegetarian Menu -->
+            <div class="category-section" id="vegetarian">
+                <h2>🧀 Vegetarian Menu (with dairy)</h2>
+                <!-- Vegetarian Starters -->
+                <h3>⭐ Starters</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="vegetarian" data-price="299" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/paneer_tikka.jpg') }}" alt="Paneer Tikka">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Paneer Tikka</h3>
+                            <p>Grilled marinated paneer</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹299</span>
+                                <button class="add-to-cart" data-id="paneer_tikka" data-name="Paneer Tikka" data-price="299">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegetarian" data-price="249" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/dahi_bhalla.jpg') }}" alt="Dahi Bhalla">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Dahi Bhalla</h3>
+                            <p>Lentil dumplings in yogurt</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹249</span>
+                                <button class="add-to-cart" data-id="dahi_bhalla" data-name="Dahi Bhalla" data-price="249">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegetarian" data-price="199" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/dhokla.jpg') }}" alt="Dhokla">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Dhokla</h3>
+                            <p>Steamed gram flour cake</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹199</span>
+                                <button class="add-to-cart" data-id="dhokla" data-name="Dhokla" data-price="199">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vegetarian Main Course -->
+                <h3>🍛 Main Course</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="vegetarian" data-price="449" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/paneer_butter_masala.jpg') }}" alt="Paneer Butter Masala">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Paneer Butter Masala</h3>
+                            <p>Paneer in creamy tomato gravy</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹449</span>
+                                <button class="add-to-cart" data-id="paneer_butter_masala" data-name="Paneer Butter Masala" data-price="449">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegetarian" data-price="399" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/palak_paneer.jpg') }}" alt="Palak Paneer">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Palak Paneer</h3>
+                            <p>Spinach curry with paneer cubes</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹399</span>
+                                <button class="add-to-cart" data-id="palak_paneer" data-name="Palak Paneer" data-price="399">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegetarian" data-price="349" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/dal_makhani.jpg') }}" alt="Dal Makhani">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Dal Makhani</h3>
+                            <p>Slow-cooked black lentils</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹349</span>
+                                <button class="add-to-cart" data-id="dal_makhani" data-name="Dal Makhani" data-price="349">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vegetarian Desserts -->
+                <h3>🍮 Desserts</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="vegetarian" data-price="199" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/gulab_jamun.jpg') }}" alt="Gulab Jamun">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Gulab Jamun</h3>
+                            <p>Milk dumplings in syrup</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹199</span>
+                                <button class="add-to-cart" data-id="gulab_jamun" data-name="Gulab Jamun" data-price="199">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegetarian" data-price="249" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/rasmalai.jpg') }}" alt="Rasmalai">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Rasmalai</h3>
+                            <p>Paneer patties in saffron milk</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹249</span>
+                                <button class="add-to-cart" data-id="rasmalai" data-name="Rasmalai" data-price="249">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="vegetarian" data-price="179" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/kheer.jpg') }}" alt="Kheer">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Kheer</h3>
+                            <p>Rice pudding</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹179</span>
+                                <button class="add-to-cart" data-id="kheer" data-name="Kheer" data-price="179">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gluten-Free Menu -->
+            <div class="category-section" id="gluten-free">
+                <h2>🌾 Gluten-Free Menu</h2>
+                <!-- Gluten-Free Starters -->
+                <h3>⭐ Starters</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="gluten-free" data-price="199" data-dietary="gluten-free">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/idli.jpg') }}" alt="Idli with Chutney">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Idli with Chutney</h3>
+                            <p>Steamed rice cakes</p>
+                            <div class="menu-item-tags">
+                                <span class="tag gluten-free">Gluten-Free</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹199</span>
+                                <button class="add-to-cart" data-id="idli" data-name="Idli with Chutney" data-price="199">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="gluten-free" data-price="249" data-dietary="gluten-free">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/sabudana_vada.jpg') }}" alt="Sabudana Vada">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Sabudana Vada</h3>
+                            <p>Tapioca & potato fritters</p>
+                            <div class="menu-item-tags">
+                                <span class="tag gluten-free">Gluten-Free</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹249</span>
+                                <button class="add-to-cart" data-id="sabudana_vada" data-name="Sabudana Vada" data-price="249">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="gluten-free" data-price="499" data-dietary="gluten-free">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/tandoori_prawns.jpg') }}" alt="Tandoori Prawns">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Tandoori Prawns</h3>
+                            <p>Spiced grilled prawns</p>
+                            <div class="menu-item-tags">
+                                <span class="tag gluten-free">Gluten-Free</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹499</span>
+                                <button class="add-to-cart" data-id="tandoori_prawns" data-name="Tandoori Prawns" data-price="499">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gluten-Free Main Course -->
+                <h3>🍛 Main Course</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="gluten-free" data-price="399" data-dietary="gluten-free">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/rajma_masala.jpg') }}" alt="Rajma Masala">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Rajma Masala</h3>
+                            <p>Kidney bean curry</p>
+                            <div class="menu-item-tags">
+                                <span class="tag gluten-free">Gluten-Free</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹399</span>
+                                <button class="add-to-cart" data-id="rajma_masala" data-name="Rajma Masala" data-price="399">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="gluten-free" data-price="549" data-dietary="gluten-free">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/fish_curry.jpg') }}" alt="Fish Curry">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Fish Curry</h3>
+                            <p>Coastal-style curry</p>
+                            <div class="menu-item-tags">
+                                <span class="tag gluten-free">Gluten-Free</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹549</span>
+                                <button class="add-to-cart" data-id="fish_curry" data-name="Fish Curry" data-price="549">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="gluten-free" data-price="449" data-dietary="gluten-free">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/veg_pulao.jpg') }}" alt="Vegetable Pulao">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Vegetable Pulao</h3>
+                            <p>Spiced rice with vegetables</p>
+                            <div class="menu-item-tags">
+                                <span class="tag gluten-free">Gluten-Free</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹449</span>
+                                <button class="add-to-cart" data-id="veg_pulao" data-name="Vegetable Pulao" data-price="449">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gluten-Free Desserts -->
+                <h3>🍮 Desserts</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="gluten-free" data-price="249" data-dietary="gluten-free">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/phirni.jpg') }}" alt="Phirni">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Phirni</h3>
+                            <p>Rice pudding with saffron</p>
+                            <div class="menu-item-tags">
+                                <span class="tag gluten-free">Gluten-Free</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹249</span>
+                                <button class="add-to-cart" data-id="phirni" data-name="Phirni" data-price="249">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="gluten-free" data-price="199" data-dietary="gluten-free">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/besan_ladoo.jpg') }}" alt="Besan Ladoo">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Besan Ladoo</h3>
+                            <p>Chickpea flour sweet balls</p>
+                            <div class="menu-item-tags">
+                                <span class="tag gluten-free">Gluten-Free</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹199</span>
+                                <button class="add-to-cart" data-id="besan_ladoo" data-name="Besan Ladoo" data-price="199">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="gluten-free" data-price="299" data-dietary="gluten-free">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/shrikhand.jpg') }}" alt="Shrikhand">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Shrikhand</h3>
+                            <p>Sweetened yogurt with saffron</p>
+                            <div class="menu-item-tags">
+                                <span class="tag gluten-free">Gluten-Free</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹299</span>
+                                <button class="add-to-cart" data-id="shrikhand" data-name="Shrikhand" data-price="299">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Items Menu (Veg + Non-Veg) -->
+            <div class="category-section" id="all-items">
+                <h2>🍗 All Items Menu (Veg + Non-Veg)</h2>
+                <!-- All Starters -->
+                <h3>⭐ Starters</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="all-items" data-price="399" data-dietary="non-vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/chicken_tikka.jpg') }}" alt="Chicken Tikka">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Chicken Tikka</h3>
+                            <p>Tandoor-grilled chicken</p>
+                            <div class="menu-item-tags">
+                                <span class="tag non-vegetarian">Non-Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹399</span>
+                                <button class="add-to-cart" data-id="chicken_tikka" data-name="Chicken Tikka" data-price="399">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="all-items" data-price="449" data-dietary="non-vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/seekh_kebab.jpg') }}" alt="Seekh Kebab">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Seekh Kebab</h3>
+                            <p>Spiced minced meat skewers</p>
+                            <div class="menu-item-tags">
+                                <span class="tag non-vegetarian">Non-Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹449</span>
+                                <button class="add-to-cart" data-id="seekh_kebab" data-name="Seekh Kebab" data-price="449">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="all-items" data-price="349" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/paneer_tikka.jpg') }}" alt="Paneer Tikka">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Paneer Tikka</h3>
+                            <p>For vegetarians</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹349</span>
+                                <button class="add-to-cart" data-id="paneer_tikka" data-name="Paneer Tikka" data-price="349">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- All Main Course -->
+                <h3>🍛 Main Course</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="all-items" data-price="499" data-dietary="non-vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/butter_chicken.jpg') }}" alt="Butter Chicken">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Butter Chicken</h3>
+                            <p>Creamy tomato chicken curry</p>
+                            <div class="menu-item-tags">
+                                <span class="tag non-vegetarian">Non-Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹499</span>
+                                <button class="add-to-cart" data-id="butter_chicken" data-name="Butter Chicken" data-price="499">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="all-items" data-price="599" data-dietary="non-vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/mutton_rogan_josh.jpg') }}" alt="Mutton Rogan Josh">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Mutton Rogan Josh</h3>
+                            <p>Kashmiri lamb curry</p>
+                            <div class="menu-item-tags">
+                                <span class="tag non-vegetarian">Non-Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹599</span>
+                                <button class="add-to-cart" data-id="mutton_rogan_josh" data-name="Mutton Rogan Josh" data-price="599">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="all-items" data-price="449" data-dietary="choice">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/biryani.jpg') }}" alt="Biryani">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Biryani (Chicken or Veg)</h3>
+                            <p>Fragrant rice dish</p>
+                            <div class="menu-item-tags">
+                                <span class="tag choice">Choice of Veg/Non-Veg</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹449</span>
+                                <button class="add-to-cart" data-id="biryani" data-name="Biryani (Chicken or Veg)" data-price="449">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- All Desserts -->
+                <h3>🍮 Desserts</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="all-items" data-price="299" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/jalebi_rabri.jpg') }}" alt="Jalebi with Rabri">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Jalebi with Rabri</h3>
+                            <p>Crispy spirals with thickened milk</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹299</span>
+                                <button class="add-to-cart" data-id="jalebi_rabri" data-name="Jalebi with Rabri" data-price="299">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="all-items" data-price="249" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/gajar_halwa.jpg') }}" alt="Gajar ka Halwa">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Gajar ka Halwa</h3>
+                            <p>Carrot & milk dessert</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹249</span>
+                                <button class="add-to-cart" data-id="gajar_halwa" data-name="Gajar ka Halwa" data-price="249">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="all-items" data-price="349" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/kulfi_falooda.jpg') }}" alt="Kulfi Falooda">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Kulfi Falooda</h3>
+                            <p>Indian ice cream with vermicelli</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹349</span>
+                                <button class="add-to-cart" data-id="kulfi_falooda" data-name="Kulfi Falooda" data-price="349">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drinks -->
+            <div class="category-section" id="drinks">
+                <h2>🥤 Drinks</h2>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="drinks" data-price="149" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/lassi.jpg') }}" alt="Lassi">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Mango Lassi</h3>
+                            <p>Sweet yogurt drink blended with fresh mango</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹149</span>
+                                <button class="add-to-cart" data-id="mango_lassi" data-name="Mango Lassi" data-price="149">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="drinks" data-price="99" data-dietary="vegetarian">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/masala_chai.jpg') }}" alt="Masala Chai">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Masala Chai</h3>
+                            <p>Traditional Indian spiced tea with milk</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegetarian">Vegetarian</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹99</span>
+                                <button class="add-to-cart" data-id="masala_chai" data-name="Masala Chai" data-price="99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="drinks" data-price="79" data-dietary="vegan">
+                        <div class="menu-item-image">
+                            <img src="{{ url_for('static', filename='images/nimbu_pani.jpg') }}" alt="Nimbu Pani">
+                        </div>
+                        <div class="menu-item-details">
+                            <h3>Nimbu Pani</h3>
+                            <p>Fresh lime water with mint and Indian spices</p>
+                            <div class="menu-item-tags">
+                                <span class="tag vegan">Vegan</span>
+                            </div>
+                            <div class="menu-item-footer">
+                                <span class="price">₹79</span>
+                                <button class="add-to-cart" data-id="nimbu_pani" data-name="Nimbu Pani" data-price="79">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Resto 2.0</h3>
+                <p>Modern dining experience with traditional flavors</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Hours</h3>
+                <p>Monday - Thursday: 11am - 10pm</p>
+                <p>Friday - Saturday: 11am - 11pm</p>
+                <p>Sunday: 12pm - 9pm</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, City</p>
+                <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                <p><i class="fas fa-envelope"></i> info@resto2.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe for special offers and updates</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Resto 2.0. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-total">
+                <p>Total: <span id="cart-total-price">$0.00</span></p>
+            </div>
+            <div class="cart-actions">
+                <button id="clear-cart" class="btn secondary">Clear Cart</button>
+                <a href="{{ url_for('order') }}" id="checkout-btn" class="btn primary">Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
