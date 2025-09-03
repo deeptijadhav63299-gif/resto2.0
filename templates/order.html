@@ -144,10 +144,28 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="special-requests">Special Requests (Optional)</label>
-                        <textarea id="special-requests" rows="2"></textarea>
+                        <label for="communication-preference">Communication Preference</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="communication-preference" value="verbal" checked>
+                                Verbal (Speaking)
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="communication-preference" value="text">
+                                Text-based (No speaking required)
+                            </label>
+                        </div>
                     </div>
-                    
+
+                    <div class="form-group">
+                        <label for="order-customization">Order Customization</label>
+                        <textarea id="order-customization" name="order-customization" rows="4" placeholder="Type any specific instructions about your order here. For example: cooking preferences, ingredient modifications, or any special dietary requirements."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="special-requests">Special Requests</label>
+                        <textarea id="special-requests" name="special-requests" rows="4" placeholder="Type any additional requests or accommodations needed. We're here to help make your dining experience comfortable."></textarea>
+                    </div>
                     <div class="order-actions">
                         <button type="button" id="back-to-cart" class="btn secondary">Back to Cart</button>
                         <button type="button" id="next-to-payment" class="btn primary">Continue to Payment</button>

@@ -12,9 +12,21 @@ app = Flask(__name__,
             template_folder='templates')
 
 # Configuration
-app.config['SECRET_KEY'] = 'resto2.0-secret-key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///resto.db'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'resto2.0-secret-key')
+
+# Handle SQLite and PostgreSQL URLs
+database_url = os.environ.get('DATABASE_URL')
+if database_url and database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url or 'sqlite:///resto.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Production settings
+if os.environ.get('FLASK_ENV') == 'production':
+    app.config['SESSION_COOKIE_SECURE'] = True
+    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['REMEMBER_COOKIE_SECURE'] = True
+    app.config['REMEMBER_COOKIE_HTTPONLY'] = True
 
 # Initialize extensions
 db = SQLAlchemy(app)
@@ -94,6 +106,25 @@ class Review(db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+# Create database tables
+def init_db():
+    with app.app_context():
+        db.create_all()
+        # Check if admin user exists
+        admin = User.query.filter_by(username='admin').first()
+        if not admin:
+            admin = User(
+                username='admin',
+                email='admin@resto.com',
+                is_admin=True
+            )
+            admin.set_password('admin123')  # Set a default password
+            db.session.add(admin)
+            db.session.commit()
+
+# Initialize database
+init_db()
 
 # Routes
 @app.route('/')

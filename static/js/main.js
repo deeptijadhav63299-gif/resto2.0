@@ -995,3 +995,53 @@ function setupInteractiveFeatures() {
         }
     }, 5000); // Check every 5 seconds
 }
+
+// Vibration Alert Functions
+function vibrateDevice(pattern = [200]) {
+    // Check if vibration is supported and permission is granted
+    if ('vibrate' in navigator) {
+        try {
+            navigator.vibrate(pattern);
+        } catch (error) {
+            console.log('Vibration failed:', error);
+        }
+    }
+}
+
+// Function to handle order placement vibration
+function orderPlacedVibration() {
+    // Short-Long-Short pattern for order placed
+    vibrateDevice([100, 100, 200, 100, 100]);
+}
+
+// Function to handle order ready vibration
+function orderReadyVibration() {
+    // Three short pulses for order ready
+    vibrateDevice([200, 100, 200, 100, 200]);
+}
+
+// Event listeners for order actions
+document.addEventListener('DOMContentLoaded', function() {
+    // Place Order button click handler
+    const placeOrderBtn = document.querySelector('#place-order-btn');
+    if (placeOrderBtn) {
+        placeOrderBtn.addEventListener('click', function() {
+            orderPlacedVibration();
+        });
+    }
+
+    // Order status change handler
+    function checkOrderStatus() {
+        // This is a placeholder for order status checking logic
+        // In a real implementation, this would check against the server
+        const orderStatus = document.querySelector('#order-status');
+        if (orderStatus && orderStatus.textContent.includes('Ready')) {
+            orderReadyVibration();
+        }
+    }
+
+    // Check order status periodically if on order tracking page
+    if (window.location.pathname.includes('order')) {
+        setInterval(checkOrderStatus, 30000); // Check every 30 seconds
+    }
+});

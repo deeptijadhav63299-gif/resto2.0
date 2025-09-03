@@ -923,16 +923,58 @@ footer {
     gap: 1rem;
 }
 
+/* Text-based Ordering Styles */
 .radio-group {
     display: flex;
-    gap: 1.5rem;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5px;
 }
 
 .radio-label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
     cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    margin: 0;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+}
+
+textarea::placeholder {
+    color: #999;
+}
+
+/* Dark mode support for new elements */
+.dark-mode textarea {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #fff;
+}
+
+.dark-mode textarea::placeholder {
+    color: #888;
+}
+
+.dark-mode .radio-label {
+    color: #fff;
 }
 
 .conditional-form {
