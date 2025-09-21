@@ -430,10 +430,8 @@ def api_sales_report():
         'top_items': [{'name': row.name, 'quantity': row.quantity, 'revenue': float(row.revenue)} for row in top_items]
     })
 
-# Initialize database on first request
-@app.before_first_request
-def create_tables():
-    init_db()
+# Initialize database on startup
+# Note: @app.before_first_request is deprecated, using app context instead
 
 # Initialize the database and create sample data
 with app.app_context():
@@ -451,10 +449,5 @@ with app.app_context():
         db.session.add(admin)
         db.session.commit()
 
-# Vercel handler
-def handler(request):
-    return app(request.environ, lambda status, headers: None)
-
-# For local development
-if __name__ == '__main__':
-    app.run(debug=True)
+# For Vercel deployment - export the app
+# This is the main entry point that Vercel will use
