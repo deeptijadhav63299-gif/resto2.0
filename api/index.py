@@ -6,10 +6,10 @@ import os
 from datetime import datetime
 import json
 
-# Initialize Flask app
+# Initialize Flask app with proper paths for Vercel
 app = Flask(__name__,
-            static_folder='../static',
-            template_folder='../templates',
+            static_folder=os.path.join(os.path.dirname(__file__), '..', 'static'),
+            template_folder=os.path.join(os.path.dirname(__file__), '..', 'templates'),
             instance_relative_config=True)
 
 # Configuration
@@ -33,6 +33,11 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+# Test route to verify app is working
+@app.route('/test')
+def test():
+    return jsonify({"status": "success", "message": "Flask app is running on Vercel!"})
 
 # Models
 class User(UserMixin, db.Model):
@@ -449,5 +454,17 @@ with app.app_context():
         db.session.add(admin)
         db.session.commit()
 
-# For Vercel deployment - export the app
+# Vercel serverless function handler
+def handler(request, context):
+    """Main handler for Vercel serverless functions"""
+    return app
+
+# For Vercel deployment - export the app as the default export
 # This is the main entry point that Vercel will use
+if __name__ != '__main__':
+    # Running on Vercel
+    application = app
+else:
+    # Local development
+    if __name__ == '__main__':
+        app.run(debug=True)
